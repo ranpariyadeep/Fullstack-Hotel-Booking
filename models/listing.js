@@ -14,8 +14,8 @@ const listingSchema = new Schema({
     description: String,
     image:{
         type: String,
-        default: "https://unsplash.com/photos/top-view-photo-of-houses-sPpe2D7VbpM",
-     set:(v) => v === "" ? "https://unsplash.com/photos/top-view-photo-of-houses-sPpe2D7VbpM" : v,
+        default: "https://images.unsplash.com/photo-1513880989635-6eb491ce7f5b?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=maximillian-conacher-sPpe2D7VbpM-unsplash.jpg&w=1920",
+     set:(v) => v === "" ? "https://images.unsplash.com/photo-1513880989635-6eb491ce7f5b?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=maximillian-conacher-sPpe2D7VbpM-unsplash.jpg&w=1920" : v,
     },
     price: Number,
     location: String,

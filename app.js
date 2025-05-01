@@ -5,6 +5,7 @@ const Listing = require("./models/listing.js");
 const ejs = require("ejs");
 const path = require("path");
 const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
 
 // URL for connect to MongoDB
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
@@ -33,6 +34,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Middleware to override HTTP methods
 app.use(methodOverride("_method"));
+// Middleware to use ejs-mate for layout
+app.engine("ejs", ejsMate);
+
 
 // root API
 app.get("/", (req, res) => {
