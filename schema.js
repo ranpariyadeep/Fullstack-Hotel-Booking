@@ -10,3 +10,12 @@ module.exports.listingSchema = Joi.object({
         country: Joi.string().required(),
     }).required()
 });
+
+// Review Schema
+// This schema validates the review object structure
+module.exports.reviewSchema = Joi.object({
+    review: Joi.object({
+        rating: Joi.number().required().min(1).max(5),
+        comment: Joi.string().required(),
+    }).required()
+});
