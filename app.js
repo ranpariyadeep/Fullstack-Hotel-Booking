@@ -56,28 +56,35 @@ app.engine("ejs", ejsMate);
 app.use("/listings", listings);
 app.use("/listings/:id/reviews",reviews)
 
-//Test Listing API
-// app.get("/testlisting", async (req, res) => {
-//   let sampleListing = new Listing({
-//     title: "Sample Listing",
-//     description: "This is a sample listing",
-//     image: "",
-//     price: 100,
-//     location: "New York",
-//     country: "USA",
-//   })
-//   await sampleListing.save();
-//   console.log("Sample listing saved");
-//     res.send("success");
-// });
+
 
 //Error handling middleware
 //pela badha upar na route ma check kare no male to baaki badh aroutni req. ma page not found
 
+// app.use((err, req, res, next) => {
+//   let { statusCode = 500, message = "Somthing went wrong!" } = err;
+//   res.status(statusCode).render("error.ejs",{message});
+// });
+
+// ...your app routes and other middleware...
+
+
+// Catch-all 404 handler
+// app.use((req, res, next) => {
+//   next({ statusCode: 404, message: "Page Not Found!" });
+// });
+
 app.use((err, req, res, next) => {
-  let { statusCode = 500, message = "Somthing went wrong!" } = err;
-  res.status(statusCode).render("error.ejs",{message});
+  let { statusCode = 404, message = "Something went wrong!" } = err;
+  res.status(statusCode).render("error.ejs", { message });
 });
+
+// Centralized error handler
+app.use((err, req, res, next) => {
+  let { statusCode = 500, message = "Something went wrong!" } = err;
+  res.status(statusCode).render("error.ejs", { message });
+});
+
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
