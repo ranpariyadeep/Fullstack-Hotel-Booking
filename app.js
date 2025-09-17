@@ -1,18 +1,25 @@
 const express = require("express");
-const app = express();
+
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 
+const session = require("express-session");
+const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
+const app = express();
 const ExpressError = require("./utils/ExpressError.js");
 
 
 
 // Import routes
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
+const listingRouter = require("./routes/listing.js");
+const reviewRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js");
 
 // URL for connect to MongoDB
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
@@ -44,40 +51,70 @@ app.use(methodOverride("_method"));
 // Middleware to use ejs-mate for layout
 app.engine("ejs", ejsMate);
 
-// root API
-// app.get("/", (req, res) => {
-//   res.send("I am a Root!");
-// });
+
+const sessionOptions = {
+  secret:"mysupersecretcode",
+  resave:false,
+  saveUninitialized:true,
+  cookie:{
+    httpOnly:true,
+
+    // secure:true, //only works on https
+    expires:Date.now()+1000*60*60*24*7,
+    maxAge:1000*60*60*24*7,
+  },
+};
+
+app.get("/", (req, res) => {
+  res.send("This is the root page");
+});
+
+
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+// User Authentication
+app.use(passport.initialize());
+app.use(passport.session());
+// Use the local strategy for authentication
+passport.use(new LocalStrategy(User.authenticate()));
+
+//serialize - how to store a user in the session
+//deserialize - how to get the user out of the session
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  //console.log(success);
+  res.locals.error = req.flash("error");
+  res.locals.currentUser = req.user;
+  next(); 
+});
 
 
 
 
-
-app.use("/listings", listings);
-app.use("/listings/:id/reviews",reviews)
-
+app.use("/listings", listingRouter);
+app.use("/listings/:id/reviews",reviewRouter)
+app.use("/", userRouter);
 
 
 //Error handling middleware
 //pela badha upar na route ma check kare no male to baaki badh aroutni req. ma page not found
 
-// app.use((err, req, res, next) => {
-//   let { statusCode = 500, message = "Somthing went wrong!" } = err;
-//   res.status(statusCode).render("error.ejs",{message});
-// });
+
 
 // ...your app routes and other middleware...
 
 
 // Catch-all 404 handler
-// app.use((req, res, next) => {
-//   next({ statusCode: 404, message: "Page Not Found!" });
-// });
-
-app.use((err, req, res, next) => {
-  let { statusCode = 404, message = "Something went wrong!" } = err;
-  res.status(statusCode).render("error.ejs", { message });
+app.use((req, res, next) => {
+  next({ statusCode: 404, message: "Page Not Found!" });
 });
+
+
 
 // Centralized error handler
 app.use((err, req, res, next) => {
