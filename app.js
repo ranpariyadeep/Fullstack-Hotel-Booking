@@ -70,7 +70,8 @@ const sessionOptions = {
 };
 
 app.get("/", (req, res) => {
-  res.send("This is the root page");
+  //res.send("This is the root page");
+  res.redirect("/listings");
 });
 
 
