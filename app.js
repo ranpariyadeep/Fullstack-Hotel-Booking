@@ -11,6 +11,8 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
+
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -26,7 +28,7 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 // URL for connect to MongoDB
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const dbUrl = process.env.ATLASDB_URL;
 
 // check if the MongoDB server is running
 main()
@@ -38,7 +40,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 
 // Set the view engine to ejs
@@ -55,9 +57,19 @@ app.use(methodOverride("_method"));
 // Middleware to use ejs-mate for layout
 app.engine("ejs", ejsMate);
 
+const store = MongoStore.create({
+  mongoUrl:dbUrl,
+  crypto: {
+    secret:process.env.SECRET,
+  },
+  touchAfter:24*60*60,
+});
+store.on("error",function(e){
+  console.log("SESSION STORE ERROR",e);
+});
 
 const sessionOptions = {
-  secret:"mysupersecretcode",
+  secret:process.env.SECRET,
   resave:false,
   saveUninitialized:true,
   cookie:{
@@ -68,6 +80,7 @@ const sessionOptions = {
     maxAge:1000*60*60*24*7,
   },
 };
+
 
 app.get("/", (req, res) => {
   //res.send("This is the root page");
