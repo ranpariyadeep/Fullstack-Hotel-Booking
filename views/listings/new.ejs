@@ -3,7 +3,13 @@
   <div class="col-8 offset-2">
     <br /><br />
     <h3>Create a New Listing</h3>
-    <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
+    <form
+      action="/listings"
+      method="POST"
+      novalidate
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
       <div class="mb-3">
         <label for="title" class="form-lable">Title</label>
         <input
@@ -15,8 +21,7 @@
           required
         />
         <div class="valid-feedback">Title Look Good!</div>
-       <div class="invalid-feedback">Please enter Title! </div>
-
+        <div class="invalid-feedback">Please enter Title!</div>
       </div>
 
       <div class="mb-3">
@@ -28,21 +33,10 @@
           class="form-control"
           required
         ></textarea>
-                  <div class="invalid-feedback">Please enter short description</div>
-
+        <div class="invalid-feedback">Please enter short description</div>
       </div>
 
       <div class="mb-3">
-        <label for="image" class="form-label">Image Link</label>
-        <input
-          name="listing[image]"
-          id=""
-          type="text"
-          placeholder="Enter Image URL/LINK"
-          class="form-control"
-        />
-      </div>
-       <div class="mb-3">
         <label for="image" class="form-label">Upload Image </label>
         <input
           name="listing[image]"
@@ -52,6 +46,7 @@
           required
         />
       </div>
+
       <div class="row">
         <div class="mb-3 col-md-4">
           <label for="price" class="form-label">Price</label>
@@ -89,6 +84,37 @@
           required
         />
         <div class="invalid-feedback">Location shoud be valid!</div>
+      </div>
+      <div class="mb-3">
+        <label for="locationType" class="form-label">Location Type</label>
+
+        <select
+          name="listing[locationType]"
+          id="locationType"
+          class="form-control"
+          required
+        >
+          <option value="" selected disabled>-- Select Location Type --</option>
+          <option value="mountain">Mountain</option>
+          <option value="castles">Castles</option>
+          <option value="camping">Camping</option>
+          <option value="arctic">Arctic</option>
+          <option value="beach">Beach</option>
+          <option value="farm">Farm</option>
+          <option value="iconicCity">Iconic City</option>
+          <option value="village">Village</option>
+          <option value="lake">Lake</option>
+          <option value="desert">Desert</option>
+          <option value="forest">Forest</option>
+          <option value="island">Island</option>
+          <option value="riverSide">River Side</option>
+          <option value="countryside">Countryside</option>
+          <option value="snow">Snow / Ski Area</option>
+          <option value="coastal">Coastal</option>
+        
+        </select>
+
+        <div class="invalid-feedback">Please select Location Type!</div>
       </div>
       <br />
       <button class="btn btn-dark add-btn mt-3">Add</button>

@@ -77,6 +77,7 @@
         </div>
       </div>
 
+
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
         <input
@@ -88,6 +89,36 @@
           required
         />
         <div class="invalid-feedback">Location shoud be valid!</div>
+      </div>
+
+
+      <div class="mb-3">
+        <label for="locationType" class="form-label">Location Type</label>
+        <select
+          name="listing[locationType]"
+          id="locationType"
+          class="form-control"
+          required
+        >
+          <option value="mountain"       <%= listing.locationType === "mountain" ? "selected" : "" %>>Mountain</option>
+    <option value="castles"        <%= listing.locationType === "castles" ? "selected" : "" %>>Castles</option>
+    <option value="camping"        <%= listing.locationType === "camping" ? "selected" : "" %>>Camping</option>
+    <option value="arctic"         <%= listing.locationType === "arctic" ? "selected" : "" %>>Arctic</option>
+    <option value="beach"          <%= listing.locationType === "beach" ? "selected" : "" %>>Beach</option>
+    <option value="farm"           <%= listing.locationType === "farm" ? "selected" : "" %>>Farm</option>
+    <option value="city"           <%= listing.locationType === "iconicCity" ? "selected" : "" %>>Iconic City</option>
+    <option value="village"        <%= listing.locationType === "village" ? "selected" : "" %>>Village</option>
+    <option value="lake"           <%= listing.locationType === "lake" ? "selected" : "" %>>Lake</option>
+    <option value="desert"         <%= listing.locationType === "desert" ? "selected" : "" %>>Desert</option>
+    <option value="forest"         <%= listing.locationType === "forest" ? "selected" : "" %>>Forest</option>
+    <option value="island"         <%= listing.locationType === "island" ? "selected" : "" %>>Island</option>
+    <option value="riverside"      <%= listing.locationType === "riverside" ? "selected" : "" %>>River Side</option>
+    <option value="countryside"    <%= listing.locationType === "countryside" ? "selected" : "" %>>Countryside</option>
+    <option value="snow"           <%= listing.locationType === "snow" ? "selected" : "" %>>Snow / Ski Area</option>
+    <option value="coastal"        <%= listing.locationType === "coastal" ? "selected" : "" %>>Coastal</option>
+  
+        </select>
+        <div class="invalid-feedback">Location Type shoud be valid!</div>
       </div>
 
       <br />

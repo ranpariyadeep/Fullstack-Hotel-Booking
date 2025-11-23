@@ -72,3 +72,60 @@
 .icon {
   font-size: 18px;
 }
+.calendar-popup {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0; 
+  padding: 12px;
+  z-index: 2000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Selected check-in and check-out */
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background: #ff0055 !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+}
+
+/* Dates in between check-in and check-out */
+.flatpickr-day.inRange {
+  background: #ffc0d0 !important; /* light #ff0055 */
+  color: #000 !important;
+  border-radius: 0 !important;
+}
+
+/* Past dates appearance */
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.disabled {
+  color: #aaa !important;
+  background: #f9f9f9 !important;
+  cursor: not-allowed;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background: #ff0055 !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+}
+
+.flatpickr-day.inRange {
+  background: #ffc0d0 !important;
+  color: #000 !important;
+  border-radius: 0 !important;
+}
+
+.flatpickr-day.disabled,
+.flatpickr-day.prevMonthDay {
+  color: #aaa !important;
+  background: #f9f9f9 !important;
+  cursor: not-allowed;
+}
