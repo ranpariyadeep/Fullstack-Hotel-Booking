@@ -28,7 +28,7 @@ const listingSchema = new Schema({
     "lake", "desert", "forest", "island","iconicCity",
     "riverside", "countryside", "snow", "coastal"
   ],
-  required: true
+  required: false
 },
   reviews: [
     {
